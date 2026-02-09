@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/admin.css">
+    <title>Gancho - Dashboard</title>
+</head>
+<body>
+
+    <!-- Navbar Admin -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+                <img src="../img/Logo_gancho.png" alt="Logo" width="40" height="40" class="me-2">
+                <span>Panel Admin</span>
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3" id="adminEmail"></span>
+                <button class="btn btn-outline-light btn-sm" id="logoutBtn">Cerrar sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Sección: Gestionar Carrusel -->
+        <div class="card mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">🎠 Gestionar Carrusel</h5>
+                <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addSlideModal">
+                    + Agregar Slide
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="carouselLoading" class="text-center py-4">
+                    <div class="spinner-border text-dark" role="status"></div>
+                    <p class="mt-2">Cargando slides...</p>
+                </div>
+                <div id="carouselList" class="row g-3"></div>
+                <div id="carouselEmpty" class="text-center py-4 d-none">
+                    <p class="text-muted">No hay slides en el carrusel. Agrega uno nuevo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Agregar Slide -->
+    <div class="modal fade" id="addSlideModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Slide al Carrusel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addSlideForm">
+                        <div class="mb-3">
+                            <label for="slideTitle" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="slideTitle" placeholder="Ej: Colección Anturio" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="slideImage" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="slideImage" accept="image/*" required>
+                        </div>
+                        <div id="imagePreview" class="mb-3 d-none">
+                            <img id="previewImg" class="img-fluid rounded" alt="Preview">
+                        </div>
+                        <div id="uploadProgress" class="mb-3 d-none">
+                            <div class="progress">
+                                <div class="progress-bar bg-dark" id="progressBar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <small class="text-muted" id="progressText">Subiendo...</small>
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100" id="addSlideBtn">Agregar Slide</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK" crossorigin="anonymous"></script>
+</body>
+</html>

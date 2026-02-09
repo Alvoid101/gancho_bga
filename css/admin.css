@@ -1,0 +1,18 @@
+/* ============================================
+   Estilos del Panel Admin
+   ============================================ */
+
+.slide-preview {
+    height: 200px;
+    object-fit: contain;
+    background-color: #f8f8f8;
+}
+
+.slide-card {
+    transition: transform 0.2s;
+}
+
+.slide-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

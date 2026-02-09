@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/admin.css">
+    <title>Gancho - Admin Login</title>
+</head>
+<body class="bg-light">
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <img src="../img/Logo_gancho.png" alt="Logo Gancho" width="80" height="80">
+                            <h4 class="mt-2">Panel Administrador</h4>
+                        </div>
+
+                        <div id="loginError" class="alert alert-danger d-none"></div>
+
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-dark w-100" id="loginBtn">
+                                Iniciar sesión
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+
+    <script>
+        // Si ya está logueado, redirigir al dashboard
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                window.location.href = "dashboard.html";
+            }
+        });
+
+        // Login
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const errorDiv = document.getElementById("loginError");
+            const loginBtn = document.getElementById("loginBtn");
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Cargando...";
+            errorDiv.classList.add("d-none");
+
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                window.location.href = "dashboard.html";
+            } catch (error) {
+                errorDiv.textContent = "Correo o contraseña incorrectos.";
+                errorDiv.classList.remove("d-none");
+                loginBtn.disabled = false;
+                loginBtn.textContent = "Iniciar sesión";
+            }
+        });
+    </script>
+</body>
+</html>
